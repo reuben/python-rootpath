@@ -5,7 +5,6 @@
 
 import os
 import setuptools
-import setupextras
 
 # DISABLED/BUG: this line fails when `pip install palmtree` but works `pip install .`
 # from palmtree import __version__
@@ -33,10 +32,14 @@ keywords = [
     'package-root-path',
 ]
 
-packages = setupextras.get_packages()
-data_files = setupextras.get_data_files(['*.*'], os.path.join(name, 'tests', '__fixtures__'))
-requirements = setupextras.get_requirements()
-readme = setupextras.get_readme()
+packages = setuptools.find_packages(".")
+requirements = [
+    "six >= 1.11.0",
+    "coloredlogs >= 10.0",
+    "termcolor >= 1.1.0",
+]
+with open("README.md") as fin:
+    readme = fin.read()
 
 config = {
     'name': name,
@@ -82,7 +85,6 @@ config = {
             '*.*',
         ],
     },
-    'data_files': data_files,
     'include_package_data': True,
     'zip_safe': True,
 
